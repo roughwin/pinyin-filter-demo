@@ -47,12 +47,12 @@ export default {
   },
   methods: {
     async initPinyin() {
-      const resp = await fetch('/word.json');
+      const resp = await fetch('./word.json');
       const dict = await resp.json();
       this.p = new Pinyin(dict);
     },
     async getStockList() {
-      const resp = await fetch('/stock-list.json');
+      const resp = await fetch('./stock-list.json');
       this.list = await resp.json();
     },
     getFilteredList() {
