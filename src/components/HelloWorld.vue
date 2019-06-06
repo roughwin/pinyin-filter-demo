@@ -5,11 +5,13 @@
     <ol v-if="isInited">
       <li v-for="(x, index) in filteredList" :key="index">
         <span
+          :class="{
+            'word': true,
+            'red-color': x.arr && x.arr.includes(index)
+          }"
           v-for="(t, index) of x.text.split('')"
           :key="index"
-          :style="{
-            color: (x.arr && x.arr.includes(index)) ? 'red' : 'black'
-          }"
+          @click="genPinyin(t)"
         >{{t}}</span>
       </li>
     </ol>
@@ -26,6 +28,15 @@
   li {
     list-style: none;
   }
+
+  .word.red-color {
+    color: red
+  }
+  .word:hover {
+    color: forestgreen;
+    cursor: pointer;
+  }
+
 </style>
 
 
@@ -50,6 +61,14 @@ export default {
       const resp = await fetch('./word.json');
       const dict = await resp.json();
       this.p = new Pinyin(dict);
+      window.pinyin = this.p;
+    },
+    genPinyin(str) {
+      if (!this.p) return null;
+      const x = this.p.genPinyin(str);
+      if (x && x.length) {
+        console.log("拼音：", x.join(' '))
+      }
     },
     async getStockList() {
       const resp = await fetch('./stock-list.json');
