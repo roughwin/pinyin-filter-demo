@@ -21,9 +21,10 @@
 
 <style scoped>
   input {
-    height: 2em;
-    width: 200px;
-    margin: 1em 0;
+    height: 35px;
+    width: 250px;
+    margin: 20px 0;
+    font-size: 20px;
   }
   li {
     list-style: none;
